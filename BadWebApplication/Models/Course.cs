@@ -16,5 +16,8 @@ namespace BadWebApplication.Models
         //[Required(ErrorMessage = "Please fill the Course Title")]
         public string CourseName { get; set; }
         public int Credits { get; set; }
+
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; }
     }
 }

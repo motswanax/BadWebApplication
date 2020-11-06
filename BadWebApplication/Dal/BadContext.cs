@@ -21,6 +21,8 @@ namespace BadWebApplication.Dal
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new CourseConfig());
+
+            modelBuilder.ApplyConfiguration(new DepartmentConfig());
         }
     }
 }
