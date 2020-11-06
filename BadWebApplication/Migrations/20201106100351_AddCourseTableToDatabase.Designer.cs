@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BadWebApplication.Migrations
 {
     [DbContext(typeof(BadContext))]
-    [Migration("20201106092807_DbInitialize")]
-    partial class DbInitialize
+    [Migration("20201106100351_AddCourseTableToDatabase")]
+    partial class AddCourseTableToDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
