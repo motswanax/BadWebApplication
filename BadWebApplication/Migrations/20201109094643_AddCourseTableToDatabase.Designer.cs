@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BadWebApplication.Migrations
 {
     [DbContext(typeof(BadContext))]
-    [Migration("20201106100123_DbInitialize")]
-    partial class DbInitialize
+    [Migration("20201109094643_AddCourseTableToDatabase")]
+    partial class AddCourseTableToDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,9 +33,42 @@ namespace BadWebApplication.Migrations
                     b.Property<int>("Credits")
                         .HasColumnType("int");
 
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
                     b.HasKey("CourseId");
 
+                    b.HasIndex("DepartmentId");
+
                     b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("BadWebApplication.Models.Department", b =>
+                {
+                    b.Property<int>("DepartmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Budget")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("DepartmentName")
+                        .IsRequired()
+                        .HasColumnType("Nvarchar(50)");
+
+                    b.HasKey("DepartmentId");
+
+                    b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("BadWebApplication.Models.Course", b =>
+                {
+                    b.HasOne("BadWebApplication.Models.Department", "Department")
+                        .WithMany("Courses")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

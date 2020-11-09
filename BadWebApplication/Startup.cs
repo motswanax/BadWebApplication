@@ -15,7 +15,7 @@ namespace BadWebApplication
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; set; }
+        public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
         {
@@ -50,6 +50,8 @@ namespace BadWebApplication
                     await context.Response.WriteAsync("Hello World!");
                 });
             });
+             
+            DbInitializer.Seed(app);
         }
     }
 }

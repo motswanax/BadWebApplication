@@ -28,14 +28,14 @@ namespace BadWebApplication.Dal
     {
         public void Configure(EntityTypeBuilder<Department> builder)
         {
-            builder.HasKey(keyExpression => keyExpression.DepartmentId);
+            builder.HasKey(k => k.DepartmentId);
             builder.Property(p => p.DepartmentId).ValueGeneratedOnAdd();
             builder.Property(p => p.DepartmentName).IsRequired().HasColumnType("Nvarchar(50)");
-            builder.Property(p => p.Budget).IsRequired();
+            builder.Property(p => p.Budget).HasColumnType("decimal(18, 2)").IsRequired();
 
-            builder.HasMany(m => m.Courses)
+            /*builder.HasMany(m => m.Courses)
                 .WithOne(o => o.Department)
-                .HasForeignKey(f => f.DepartmentId);
+                .HasForeignKey(f => f.DepartmentId);*/
         }
     }
 }

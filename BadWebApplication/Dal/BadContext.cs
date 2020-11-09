@@ -10,6 +10,7 @@ namespace BadWebApplication.Dal
     public class BadContext : DbContext
     {
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Department> Departments { get; set; }
 
         public BadContext(DbContextOptions<BadContext> options)
             : base(options)

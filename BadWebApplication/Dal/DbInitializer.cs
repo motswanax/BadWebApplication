@@ -12,18 +12,27 @@ namespace BadWebApplication.Dal
     {
         public static void Seed(IApplicationBuilder builder)
         {
-            using (var serviceScope = builder.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope()) ;
+            using (IServiceScope serviceScope = builder.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetService<BadContext>();
+                BadContext context = serviceScope.ServiceProvider.GetService<BadContext>();
 
-                if (context.Courses.Any())
+                if (!context.Departments.Any())
+                {
+                    context.Departments.AddRange(Departments.Values);
+                }
+
+                if (!context.Courses.Any())
                 {
                     var courseList = new List<Course>
                     {
-                        new Course() {CourseName = "C#", Department = Departments["Programming"], CourseId = 8},
-                        new Course() {CourseName = "C#", Department = Departments["Design"], CourseId = 8}
-                    }
+                        new Course() {CourseName = "C#", Department = Departments["Programming"], Credits = 3},
+                        new Course() {CourseName = "HTML", Department = Departments["Design"], Credits = 2},
+                        new Course() {CourseName = "CCNA", Department = Departments["Network"], Credits = 2}
+                    };
+                    context.Courses.AddRange(courseList);
                 }
+
+                context.SaveChanges();
             }
         }
 
@@ -33,8 +42,8 @@ namespace BadWebApplication.Dal
         {
             get
             {
-                if (Departments != null)
-                    return Departments;
+                if (departments != null)
+                    return departments;
 
                 var deptList = new[]
                 {
@@ -43,17 +52,15 @@ namespace BadWebApplication.Dal
                     new Department() { DepartmentName = "Network"}
                 };
 
-                Departments = new Dictionary<string, Department>();
+                departments = new Dictionary<string, Department>();
 
                 foreach (var department in deptList)
                 {
-                    Departments.Add(department.DepartmentName,  department);
+                    departments.Add(department.DepartmentName,  department);
                 }
 
                 return Departments;
             }
-            
         }
-
     }
 }

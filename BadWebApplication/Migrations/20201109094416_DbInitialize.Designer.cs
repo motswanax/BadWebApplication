@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BadWebApplication.Migrations
 {
     [DbContext(typeof(BadContext))]
-    [Migration("20201106124014_AddDepartmentTable")]
-    partial class AddDepartmentTable
+    [Migration("20201109094416_DbInitialize")]
+    partial class DbInitialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,7 +51,7 @@ namespace BadWebApplication.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("Budget")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<string>("DepartmentName")
                         .IsRequired()
@@ -59,7 +59,7 @@ namespace BadWebApplication.Migrations
 
                     b.HasKey("DepartmentId");
 
-                    b.ToTable("Department");
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("BadWebApplication.Models.Course", b =>
